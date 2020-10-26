@@ -41,7 +41,10 @@ new Vue({
   },
 
   methods: {
+    // * P/ que las validaciones sean trasparentes para el usuario, deben poder verse. Para ello usamos el metodo $touch.
+    // * Es posible usarlo, a nivel de prop, form o globalmente (this.$v.form|this.$v.form.propName|this.$v).$touch() dentro del componente.
     submitForm() {
+      this.$v.form.$touch()
       if (!this.$v.form.$invalid) {
         console.log('📄 Form submitted', this.form)
       } else {
