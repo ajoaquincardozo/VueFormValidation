@@ -21,7 +21,8 @@
             * Aunque usar $model es rapido y facil, usando $touch, se tiene el poder de decidir cuando un campo debe ensuciar. Ejemplo: onBlur event
         -->
         <input
-          v-model="$v.form.name.$model"
+          v-model="form.name"
+          @blur="$v.form.name.$touch()"
           :class="{error: $v.form.name.$error, valid: !$v.form.name.$invalid}"
           id="name">
         <p v-if="$v.form.name.$error" class="error-message">The name field is required</p>
@@ -34,7 +35,8 @@
         <!-- <input v-model.number="form.age" @input="$v.form.age.$touch()" id="age"> -->
 
         <input
-          v-model="$v.form.age.$model"
+          v-model.number="form.age"
+          @blur="$v.form.age.$touch()"
           :class="{error: $v.form.age.$error, valid: !$v.form.age.$invalid}"
           id="age">
         <div v-if="$v.form.age.$error">
