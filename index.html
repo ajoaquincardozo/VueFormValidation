@@ -44,6 +44,20 @@
           <p v-else-if="!$v.form.age.integer" class="error-message">The age field should be an integer</p>
           <p v-else-if="!$v.form.age.between" class="error-message">You should be at least 12 and younger than 120 to continue</p>
         </div>
+        <p>required: {{$v.form.age.required}} | integer: {{$v.form.age.integer}} | between: {{$v.form.age.between}}</p>
+      </div>
+
+      <!--
+          * Campo opcional. Al ser opcional, es valido (tiene sentido). Para quitar comportamiento agregar en :class, que lo marca si tiene un valor.
+       -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input v-model="form.email"
+          @blur="$v.form.email.$touch()"
+          :class="{error: $v.form.email.$error, valid: !$v.form.email.$invalid && form.email }"
+          id="email"
+        >
+        <p v-if="!$v.form.email.email && $v.form.email.$error" class="error-message">Invalid email address</p>
       </div>
 
       <div>
