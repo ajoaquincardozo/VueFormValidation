@@ -13,7 +13,8 @@ new Vue({
       form: {
         name: null,
         age: null,
-        food: null
+        food: null,
+        newsletter: null
       }
     }
   },
@@ -31,7 +32,10 @@ new Vue({
       },
 
       email: {
-        email: validators.email
+        email: validators.email,
+        required: validators.requiredIf(function () {
+          return !!this.form.newsletter // usar function, para usar this (ref al component)
+        })
       },
 
       food: {
