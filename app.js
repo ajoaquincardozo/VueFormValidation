@@ -13,8 +13,9 @@ new Vue({
       form: {
         name: null,
         age: null,
-        food: null,
-        newsletter: null
+        newsletter: null,
+        githubUsername: null,
+        food: null
       }
     }
   },
@@ -36,6 +37,19 @@ new Vue({
         required: validators.requiredIf(function () {
           return !!this.form.newsletter // usar function, para usar this (ref al component)
         })
+      },
+
+      // * Ira al backend cada vez que el campo es tocado.
+      // * IMP: En caso de limitar una llamada async, no es recomendable hacerlo en el validador (comportamiento inesperado)
+      // * En caso de querer retrasar la act. de datos, usar el modificar de eventos lazy
+      githubUsername: {
+        exists(value) {
+          if(!validators.helpers.req(value)) {
+            return Promise.resolve(true)
+          }
+
+          return axios.get(`//api.github.com/users/${value}`)
+        }
       },
 
       food: {
